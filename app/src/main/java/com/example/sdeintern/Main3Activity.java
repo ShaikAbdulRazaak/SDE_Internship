@@ -47,39 +47,54 @@ public class Main3Activity extends AppCompatActivity {
             ActivityCompat.requestPermissions(Main3Activity.this,
                     new String []{Manifest.permission.SEND_SMS,Manifest.permission.READ_SMS,Manifest.permission.RECEIVE_SMS},0);
         }
+
         checkOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Date currentTime = Calendar.getInstance().getTime();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
                 String checkoutTime = dateFormat.format(currentTime);
+                String message="Hello " +Vname+ " Your meeting with "+Hname+" at "+time+" and the checkout time is"+checkoutTime+"";
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(Hphone, null, "Hello " +Vname+
+                smsManager.sendTextMessage(Hphone, null, "Hello " +Hname+
                         " Your meeting with "+Hname+" at "+time+" and the checkout time is"+checkoutTime+"", null, null);
                 smsManager.sendTextMessage(Vphone, null, "Hello " +Vname+
                         " Your meeting with "+Hname+" at "+time+" and the checkout time is "+checkoutTime+"", null, null);
                 Toast.makeText(getApplicationContext(), "SMS sent.",
                         Toast.LENGTH_LONG).show();
-
-               /* Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                /*Intent it = new Intent(Intent.ACTION_SEND);
+                it.putExtra(Intent.EXTRA_EMAIL, new String[]{Vemail});
+                it.putExtra(Intent.EXTRA_SUBJECT,"Your Meeting");
+                it.putExtra(Intent.EXTRA_TEXT,message);
+                it.setType("message/rfc822");
+                startActivity(Intent.createChooser(it,"Choose Mail App"));*/
+                String[] TO = {
+                        Vemail
+                };
+                String[] CC = {
+                        Hmail
+                };
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setData(Uri.parse("mailto:"));
                 emailIntent.setType("text/plain");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, Vemail);
-                emailIntent.putExtra(Intent.EXTRA_CC, Hmail);
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your meeting");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Hello "+Vname+"Your meeting with "+Hname+" at "+time+" and the checkout time is "+checkoutTime+"");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+                emailIntent.putExtra(Intent.EXTRA_CC, CC);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your meeting confirmed");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, message);
                 try {
                     startActivity(Intent.createChooser(emailIntent, "Send mail..."));
                     finish();
-                    Log.i("Finished sending email.", "");
+                    Toast.makeText(getApplicationContext(), "EMAIL SENT", Toast.LENGTH_SHORT).show();
                 } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(Main3Activity.this,
-                            "There is no email client installed.", Toast.LENGTH_SHORT).show();
-                }*/
+                    Toast.makeText(Main3Activity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+
+
+                }
 
             }
         });
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 0) {
@@ -89,4 +104,5 @@ public class Main3Activity extends AppCompatActivity {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
 }
