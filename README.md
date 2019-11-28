@@ -6,4 +6,4 @@ the information with time stamp of the entry.
 intents were used in this.
 An SMS and adn Email is sent to the visitor and host about the meeting containig the details like check-in
 check-out time
-![alt text]()
+![alt text](https://github.com/ShaikAbdulRazzaaq/SDE_Internship/blob/master/Screenshot_1574945130.png)
