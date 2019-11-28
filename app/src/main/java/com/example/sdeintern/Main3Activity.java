@@ -54,7 +54,7 @@ public class Main3Activity extends AppCompatActivity {
                 Date currentTime = Calendar.getInstance().getTime();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
                 String checkoutTime = dateFormat.format(currentTime);
-                String message="Hello " +Vname+ " Your meeting with "+Hname+" at "+time+" and the checkout time is"+checkoutTime+"";
+                String message="Hello " +Vname+ " Your meeting with "+Hname+" at "+time+" and the checkout time is  "+checkoutTime+"";
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(Hphone, null, "Hello " +Hname+
                         " Your meeting with "+Hname+" at "+time+" and the checkout time is"+checkoutTime+"", null, null);
