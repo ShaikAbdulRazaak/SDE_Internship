@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,7 +41,9 @@ public class Main2Activity extends AppCompatActivity {
                     String phone = b.getString("visitorPhone");
                     Date currentTime = Calendar.getInstance().getTime();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss aa");
-                    String output = dateFormat.format(currentTime);//Toast.makeText(Main2Activity.this,"Mr. " + name + " Your Check-in Time is:" + output + "", Toast.LENGTH_SHORT).show();
+                    String output = dateFormat.format(currentTime);
+                    //Toast.makeText(Main2Activity.this,"Mr. " + name + " Your Check-in Time is:" + output + "", Toast.LENGTH_SHORT).show();
+
                     Intent i = new Intent(Main2Activity.this, Main3Activity.class);
                     i.putExtra("vname",name);
                     i.putExtra("vmail",email);
