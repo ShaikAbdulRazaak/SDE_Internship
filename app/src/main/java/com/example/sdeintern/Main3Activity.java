@@ -1,8 +1,13 @@
 package com.example.sdeintern;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -37,20 +42,26 @@ public class Main3Activity extends AppCompatActivity {
         final String time=i.getStringExtra("time");
         t.setText("Hello "+Vname+" \nYour Details will be sent to your phone number: "+Vphone+" " +
                 "and \nE-Mail:"+Vemail+" soon you checkout\nYour Check-In time is "+time+"");
+        if(ContextCompat.checkSelfPermission(Main3Activity.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED){
+            checkOut.setEnabled(false);
+            ActivityCompat.requestPermissions(Main3Activity.this,
+                    new String []{Manifest.permission.SEND_SMS,Manifest.permission.READ_SMS,Manifest.permission.RECEIVE_SMS},0);
+        }
         checkOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Date currentTime = Calendar.getInstance().getTime();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss aa");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
                 String checkoutTime = dateFormat.format(currentTime);
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(Hphone, null, "Hello " +Vname+
                         " Your meeting with "+Hname+" at "+time+" and the checkout time is"+checkoutTime+"", null, null);
+                smsManager.sendTextMessage(Vphone, null, "Hello " +Vname+
+                        " Your meeting with "+Hname+" at "+time+" and the checkout time is "+checkoutTime+"", null, null);
                 Toast.makeText(getApplicationContext(), "SMS sent.",
                         Toast.LENGTH_LONG).show();
-                smsManager.sendTextMessage(Vphone, null, "Hello " +Vname+
-                        " Your meeting with "+Hname+" at "+time+" and the checkout time is"+checkoutTime+"", null, null);
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+               /* Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setData(Uri.parse("mailto:"));
                 emailIntent.setType("text/plain");
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, Vemail);
@@ -64,9 +75,18 @@ public class Main3Activity extends AppCompatActivity {
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(Main3Activity.this,
                             "There is no email client installed.", Toast.LENGTH_SHORT).show();
-                }
+                }*/
 
             }
         });
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 0) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED&&grantResults[2]==PackageManager.PERMISSION_GRANTED)
+                checkOut.setEnabled(true);
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

@@ -40,7 +40,7 @@ public class Main2Activity extends AppCompatActivity {
                     String email = b.getString("visitorEmail");
                     String phone = b.getString("visitorPhone");
                     Date currentTime = Calendar.getInstance().getTime();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss aa");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
                     String output = dateFormat.format(currentTime);
                     //Toast.makeText(Main2Activity.this,"Mr. " + name + " Your Check-in Time is:" + output + "", Toast.LENGTH_SHORT).show();
 
