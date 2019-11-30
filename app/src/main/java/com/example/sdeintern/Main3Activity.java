@@ -40,8 +40,9 @@ public class Main3Activity extends AppCompatActivity {
         final String Hmail=i.getStringExtra("hostMail");
         final String Hphone=i.getStringExtra("hostPhone");
         final String time=i.getStringExtra("time");
+        final String address=i.getStringExtra("address");
         t.setText("Hello "+Vname+" \nYour Details will be sent to your phone number: "+Vphone+" " +
-                "and \nE-Mail:"+Vemail+" soon you checkout\nYour Check-In time is "+time+"");
+                "and \nE-Mail:"+Vemail+" soon you checkout\nYour Check-In time is "+time+" at "+address+"\nPress Checkout to confirm your checkout");
         if(ContextCompat.checkSelfPermission(Main3Activity.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED){
             checkOut.setEnabled(false);
             ActivityCompat.requestPermissions(Main3Activity.this,
@@ -54,12 +55,12 @@ public class Main3Activity extends AppCompatActivity {
                 Date currentTime = Calendar.getInstance().getTime();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
                 String checkoutTime = dateFormat.format(currentTime);
-                String message="Hello " +Vname+ " Your meeting with "+Hname+" at "+time+" and the checkout time is  "+checkoutTime+"";
+                String message="Hello " +Vname+ " Your meeting with "+Hname+" at "+time+" and the checkout time is  "+checkoutTime+" at "+address+"";
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(Hphone, null, "Hello " +Hname+
-                        " Your meeting with "+Hname+" at "+time+" and the checkout time is"+checkoutTime+"", null, null);
+               /* smsManager.sendTextMessage(Hphone, null, "Hello " +Hname+
+                        " Your meeting with "+Hname+" at "+time+" and the checkout time is"+checkoutTime+" at "+address+"", null, null);*/
                 smsManager.sendTextMessage(Vphone, null, "Hello " +Vname+
-                        " Your meeting with "+Hname+" at "+time+" and the checkout time is "+checkoutTime+"", null, null);
+                        " Your meeting at "+address+ " with "+Hname+" at "+time+" and the checkout time is "+checkoutTime+" ", null, null);
                 Toast.makeText(getApplicationContext(), "SMS sent.",
                         Toast.LENGTH_LONG).show();
                 /*Intent it = new Intent(Intent.ACTION_SEND);
@@ -87,8 +88,6 @@ public class Main3Activity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "EMAIL SENT", Toast.LENGTH_SHORT).show();
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(Main3Activity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-
-
                 }
 
             }
