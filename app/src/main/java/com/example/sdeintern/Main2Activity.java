@@ -56,8 +56,8 @@ public class Main2Activity extends AppCompatActivity {
                     Toast.makeText(Main2Activity.this,"Mr. " + name + " Your Check-in Time is:" + output + "", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(Main2Activity.this, Main3Activity.class);
                     SmsManager smsManager= SmsManager.getDefault();
-                    smsManager.sendTextMessage(phone, null, "Hello " +name+
-                            " Your meeting with "+hostName.getText().toString()+" is confirmed and your check-in time is  "+output+"", null, null);
+                    smsManager.sendTextMessage(hostPhone.getText().toString(), null, "Hello " +hostName.getText().toString()+
+                            " Your meeting with "+name+" is confirmed and "+name+"'s check-in time is  "+output+"", null, null);
                     Toast.makeText(getApplicationContext(), "SMS sent.",
                             Toast.LENGTH_LONG).show();
                     i.putExtra("vname",name);
