@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,9 +12,7 @@ import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.android.material.button.MaterialButton;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -55,8 +52,8 @@ public class Main2Activity extends AppCompatActivity {
                     String output = dateFormat.format(currentTime);
                     Intent i = new Intent(Main2Activity.this, Main3Activity.class);
                     SmsManager smsManager= SmsManager.getDefault();
-                    smsManager.sendTextMessage(phone, null, "Hello " +name+
-                            " Your meeting with "+hostName.getText().toString()+" is confirmed and your check-in time is  "+output+"", null, null);
+                    smsManager.sendTextMessage(hostPhone.getText().toString(), null, "Hello " +hostName.getText().toString()+
+                            " Your meeting with "+name+" is confirmed and "+name+"'s check-in time is  "+output+"", null, null);
                     Toast.makeText(getApplicationContext(), "SMS sent.",
                             Toast.LENGTH_LONG).show();
                     i.putExtra("vname",name);
