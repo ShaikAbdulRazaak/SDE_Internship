@@ -53,7 +53,6 @@ public class Main2Activity extends AppCompatActivity {
                     Date currentTime = Calendar.getInstance().getTime();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
                     String output = dateFormat.format(currentTime);
-                    Toast.makeText(Main2Activity.this,"Mr. " + name + " Your Check-in Time is:" + output + "", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(Main2Activity.this, Main3Activity.class);
                     SmsManager smsManager= SmsManager.getDefault();
                     smsManager.sendTextMessage(phone, null, "Hello " +name+
