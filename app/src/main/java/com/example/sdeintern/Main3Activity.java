@@ -56,19 +56,12 @@ public class Main3Activity extends AppCompatActivity {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
                 String checkoutTime = dateFormat.format(currentTime);
                 String message="Hello " +Vname+ " Your meeting with "+Hname+" at "+time+" and the checkout time is  "+checkoutTime+" at "+address+"";
-                SmsManager smsManager = SmsManager.getDefault();
-               /* smsManager.sendTextMessage(Hphone, null, "Hello " +Hname+
-                        " Your meeting with "+Hname+" at "+time+" and the checkout time is"+checkoutTime+" at "+address+"", null, null);*/
+                SmsManager smsManager = SmsManager.getDefault();                       
                 smsManager.sendTextMessage(Vphone, null, "Hello " +Vname+
                         " Your meeting at "+address+ " with "+Hname+" at "+time+" and the checkout time is "+checkoutTime+" ", null, null);
                 Toast.makeText(getApplicationContext(), "SMS sent.",
                         Toast.LENGTH_LONG).show();
-                /*Intent it = new Intent(Intent.ACTION_SEND);
-                it.putExtra(Intent.EXTRA_EMAIL, new String[]{Vemail});
-                it.putExtra(Intent.EXTRA_SUBJECT,"Your Meeting");
-                it.putExtra(Intent.EXTRA_TEXT,message);
-                it.setType("message/rfc822");
-                startActivity(Intent.createChooser(it,"Choose Mail App"));*/
+                
                 String[] TO = {
                         Vemail
                 };
